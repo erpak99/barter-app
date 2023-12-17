@@ -1,0 +1,16 @@
+server:
+  port: 8096
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/barter
+    username: postgres
+    password: 12345
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
