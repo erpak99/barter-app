@@ -1,4 +1,4 @@
-package com.erpak.barter.model;
+package com.erpak.barter.enums;
 
 public enum Role {
 

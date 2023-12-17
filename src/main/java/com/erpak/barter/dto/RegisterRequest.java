@@ -1,6 +1,5 @@
 package com.erpak.barter.dto;
 
-import com.erpak.barter.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
