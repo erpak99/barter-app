@@ -23,18 +23,22 @@ public class BarterApplication {
 		return args -> {
 
 			var admin = RegisterRequest.builder()
-					.firstname("admintest3")
-					.lastname("admintest3")
+					.firstName("admintest3")
+					.lastName("admintest3")
 					.email("admintest12345@gmail.com")
+					.birthYear(2000)
+					.identityNumber("123456789")
 					.password("12345678")
 					.role(Role.ADMIN)
 					.build();
 			System.out.println("Admin token: " + service.register(admin).getAccessToken());
 
 			var user = RegisterRequest.builder()
-					.firstname("usertest")
-					.lastname("usertest")
+					.firstName("usertest")
+					.lastName("usertest")
 					.email("usertest123@gmail.com")
+					.birthYear(2000)
+					.identityNumber("123456789")
 					.password("1234567890")
 					.role(Role.USER)
 					.build();
