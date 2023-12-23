@@ -9,6 +9,7 @@ import com.erpak.barter.mernis.VFEKPSPublicSoap;
 import com.erpak.barter.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +27,8 @@ public class AuthenticationController {
     private final AuthenticationService service;
 
     @PostMapping("/register")
-    public AuthenticationResponse register(@RequestBody RegisterRequest request) throws Exception {
+    public AuthenticationResponse register(@RequestBody @Valid RegisterRequest request)
+                                                    throws Exception {
 
             VFEKPSPublicSoap publicSoap = new VFEKPSPublicSoap();
             boolean isRealPerson = publicSoap.TCKimlikNoDogrula(

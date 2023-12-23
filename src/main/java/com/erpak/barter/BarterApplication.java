@@ -1,18 +1,17 @@
 package com.erpak.barter;
 
-import com.erpak.barter.dto.RegisterRequest;
-import com.erpak.barter.enums.Role;
-import com.erpak.barter.exceptions.BusinessException;
 import com.erpak.barter.exceptions.ProblemDetails;
-import com.erpak.barter.service.AuthenticationService;
-import org.springframework.boot.CommandLineRunner;
+import com.erpak.barter.exceptions.ValidationProblemDetails;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.HashMap;
 
 @SpringBootApplication
 @RestControllerAdvice
@@ -24,14 +23,26 @@ public class BarterApplication {
 
 	@ExceptionHandler
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-	public ProblemDetails handleBusinessException(BusinessException exception) {
+	public ProblemDetails handleBusinessException(RuntimeException exception) {
 		ProblemDetails problemDetails = new ProblemDetails();
 		problemDetails.setMessage(exception.getMessage());
 
 		return problemDetails;
 	}
 
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	public ProblemDetails handleValidationException(MethodArgumentNotValidException ex) {
+		ValidationProblemDetails validationProblemDetails = new ValidationProblemDetails();
+		validationProblemDetails.setMessage("VALIDATION EXCEPTION");
+		validationProblemDetails.setValidationErrors(new HashMap<>());
 
+		for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
+			validationProblemDetails.getValidationErrors().put(fieldError.getField(), fieldError.getDefaultMessage());
+		}
+
+		return validationProblemDetails;
+	}
 
 /*	@Bean
 	public CommandLineRunner commandLineRunner(

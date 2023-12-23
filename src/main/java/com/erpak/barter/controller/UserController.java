@@ -2,6 +2,7 @@ package com.erpak.barter.controller;
 
 import com.erpak.barter.dto.ChangePasswordRequest;
 import com.erpak.barter.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -20,7 +21,7 @@ public class UserController {
 
     @PatchMapping
     public ResponseEntity<?> changePassword(
-                            @RequestBody ChangePasswordRequest request,
+                            @RequestBody @Valid ChangePasswordRequest request,
                             Principal connectedUser)  {
 
         service.changePassword(request, connectedUser);
