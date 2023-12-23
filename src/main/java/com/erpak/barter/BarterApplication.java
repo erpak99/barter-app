@@ -16,7 +16,7 @@ public class BarterApplication {
 	}
 
 
-	@Bean
+/*	@Bean
 	public CommandLineRunner commandLineRunner(
 			AuthenticationService service
 	) {
@@ -45,17 +45,17 @@ public class BarterApplication {
 			System.out.println("User token: " + service.register(user).getAccessToken());
 
 
-/*			var manager = RegisterRequest.builder()
+*//*			var manager = RegisterRequest.builder()
 					.firstname("managertest12345")
 					.lastname("managertest12345")
 					.email("managertest12345@gmail.com")
 					.password("1234512345")
 					.role(Role.MANAGER)
 					.build();
-			System.out.println("Manager token: " + service.register(manager).getAccessToken());*/
+			System.out.println("Manager token: " + service.register(manager).getAccessToken());*//*
 
 
 		};
-	}
+	}*/
 
 }

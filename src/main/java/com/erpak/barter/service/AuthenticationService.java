@@ -9,6 +9,7 @@ import com.erpak.barter.model.Token;
 import com.erpak.barter.model.User;
 import com.erpak.barter.repository.TokenRepository;
 import com.erpak.barter.repository.UserRepository;
+import com.erpak.barter.rules.UserCreateRules;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -33,8 +34,13 @@ public class AuthenticationService {
     private final PasswordEncoder encoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final UserCreateRules userCreateRules;
 
     public AuthenticationResponse register(RegisterRequest request) {
+
+        userCreateRules.checkIfUserEmailExists(request.getEmail());
+        userCreateRules.checkIfUserIdentityNumberExists(request.getIdentityNumber());
+
         var user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
