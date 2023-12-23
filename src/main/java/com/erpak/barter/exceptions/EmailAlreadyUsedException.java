@@ -1,6 +1,6 @@
 package com.erpak.barter.exceptions;
 
-public class EmailAlreadyUsedException extends RuntimeException {
+public class EmailAlreadyUsedException extends BusinessException {
 
     public EmailAlreadyUsedException(String message) {
 

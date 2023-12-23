@@ -1,6 +1,6 @@
 package com.erpak.barter.exceptions;
 
-public class MernisValidationException extends RuntimeException {
+public class MernisValidationException extends BusinessException {
 
 
     public MernisValidationException(String message) {
