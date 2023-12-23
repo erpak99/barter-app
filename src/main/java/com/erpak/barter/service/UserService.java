@@ -1,6 +1,8 @@
 package com.erpak.barter.service;
 
 import com.erpak.barter.dto.ChangePasswordRequest;
+import com.erpak.barter.exceptions.ExceptionMessages;
+import com.erpak.barter.exceptions.PasswordChangeException;
 import com.erpak.barter.model.User;
 import com.erpak.barter.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,10 +25,10 @@ public class UserService {
         var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
 
        if(!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
-           throw new IllegalStateException("Wrong password"); // update exception
+           throw new PasswordChangeException(ExceptionMessages.WRONG_PASSWORD);
        }
        if(!request.getNewPassword().equals(request.getConfirmationPassword())) {
-           throw new IllegalStateException("Passwords are not same"); // update exception
+           throw new PasswordChangeException(ExceptionMessages.PASSWORDS_NOT_SAME);
        }
 
        user.setPassword(passwordEncoder.encode(request.getNewPassword()));

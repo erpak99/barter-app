@@ -3,13 +3,13 @@ package com.erpak.barter.controller;
 import com.erpak.barter.dto.AuthenticationRequest;
 import com.erpak.barter.dto.AuthenticationResponse;
 import com.erpak.barter.dto.RegisterRequest;
+import com.erpak.barter.exceptions.ExceptionMessages;
 import com.erpak.barter.exceptions.MernisValidationException;
 import com.erpak.barter.mernis.VFEKPSPublicSoap;
 import com.erpak.barter.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +26,7 @@ public class AuthenticationController {
     private final AuthenticationService service;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request) throws Exception {
+    public AuthenticationResponse register(@RequestBody RegisterRequest request) throws Exception {
 
             VFEKPSPublicSoap publicSoap = new VFEKPSPublicSoap();
             boolean isRealPerson = publicSoap.TCKimlikNoDogrula(
@@ -37,11 +37,9 @@ public class AuthenticationController {
             );
 
             if (isRealPerson) {
-                service.register(request);
-                return ResponseEntity.ok("Registration successful");
+                return service.register(request);
             } else {
-                throw new MernisValidationException("MERNIS validation failed" +
-                                                    " Please review your security credentials");
+                throw new MernisValidationException(ExceptionMessages.MERNIS_FAILED);
             }
 
     }
