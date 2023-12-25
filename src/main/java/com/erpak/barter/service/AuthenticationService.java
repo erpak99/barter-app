@@ -3,7 +3,6 @@ package com.erpak.barter.service;
 import com.erpak.barter.dto.AuthenticationRequest;
 import com.erpak.barter.dto.AuthenticationResponse;
 import com.erpak.barter.dto.RegisterRequest;
-import com.erpak.barter.enums.Role;
 import com.erpak.barter.enums.TokenType;
 import com.erpak.barter.model.Token;
 import com.erpak.barter.model.User;
@@ -17,13 +16,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -50,6 +48,7 @@ public class AuthenticationService {
                 .password(encoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .build();
+
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);

@@ -15,8 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 import static com.erpak.barter.enums.Permission.*;
-import static com.erpak.barter.enums.Role.ADMIN;
-import static com.erpak.barter.enums.Role.MANAGER;
+import static com.erpak.barter.enums.Role.*;
 import static org.springframework.http.HttpMethod.*;
 
 @Configuration
@@ -37,6 +36,10 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**")
                         .permitAll()
+
+                                //.requestMatchers("api/v1/products/**").permitAll()
+                                /*.requestMatchers("api/v1/categories/**").hasRole(ADMIN.name())
+                                .requestMatchers("api/v1/brands/**").hasRole(ADMIN.name())*/
 
                         .requestMatchers("api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
 

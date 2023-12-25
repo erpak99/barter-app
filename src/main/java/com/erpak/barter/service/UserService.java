@@ -7,6 +7,8 @@ import com.erpak.barter.model.User;
 import com.erpak.barter.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,4 +36,5 @@ public class UserService {
        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
        repository.save(user);
     }
+
 }
