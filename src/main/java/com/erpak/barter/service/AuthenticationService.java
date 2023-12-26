@@ -46,6 +46,7 @@ public class AuthenticationService {
                 .birthYear(request.getBirthYear())
                 .identityNumber(request.getIdentityNumber())
                 .password(encoder.encode(request.getPassword()))
+                .city(request.getCity())
                 .role(request.getRole())
                 .build();
 

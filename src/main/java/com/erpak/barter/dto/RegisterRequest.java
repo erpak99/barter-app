@@ -32,6 +32,8 @@ public class RegisterRequest {
             message = "Password must contain at least 1 capital letter and at least 1 symbol.")
     private String password;
 
+    private String city;
+
     private Role role;
 
 }

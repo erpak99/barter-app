@@ -38,8 +38,9 @@ public class SecurityConfiguration {
                         .permitAll()
 
                                 //.requestMatchers("api/v1/products/**").permitAll()
-                                /*.requestMatchers("api/v1/categories/**").hasRole(ADMIN.name())
-                                .requestMatchers("api/v1/brands/**").hasRole(ADMIN.name())*/
+                                .requestMatchers("api/v1/categories/**").permitAll()
+                                .requestMatchers("api/v1/brands/**").permitAll()
+                                .requestMatchers("api/v1/users/**").permitAll()
 
                         .requestMatchers("api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
 
