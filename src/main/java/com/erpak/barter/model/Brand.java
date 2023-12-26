@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -20,5 +22,11 @@ public class Brand {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "brand")
+    private List<Product> products;
+
+    @ManyToMany(mappedBy = "brands")
+    private List<Category> categories;
 
 }
