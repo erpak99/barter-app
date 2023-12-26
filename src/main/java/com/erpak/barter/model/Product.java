@@ -34,7 +34,8 @@ public class Product {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(mappedBy = "products")
-    private List<Category> categories;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
 }

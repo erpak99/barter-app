@@ -23,18 +23,10 @@ public class Category {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "category_brand",
-            joinColumns = @JoinColumn(name = "category_id"),
-            inverseJoinColumns = @JoinColumn(name = "brand_id"))
+    @OneToMany(mappedBy = "category")
     private List<Brand> brands;
 
-    @ManyToMany
-    @JoinTable(
-            name = "category_product",
-            joinColumns = @JoinColumn(name = "category_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @OneToMany(mappedBy = "category")
     private List<Product> products;
 
 

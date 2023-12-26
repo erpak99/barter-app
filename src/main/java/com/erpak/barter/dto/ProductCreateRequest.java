@@ -9,9 +9,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BrandCreateRequest {
+public class ProductCreateRequest {
 
     private String name;
+    private Long barterPoint;
+    private Long userId;
     private Long categoryId;
+    private Long brandId;
 
 }

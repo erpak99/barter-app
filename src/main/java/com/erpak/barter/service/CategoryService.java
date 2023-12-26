@@ -1,6 +1,7 @@
 package com.erpak.barter.service;
 
 import com.erpak.barter.dto.CategoryCreateRequest;
+import com.erpak.barter.dto.CategoryDto;
 import com.erpak.barter.model.Category;
 import com.erpak.barter.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,11 @@ public class CategoryService {
 
         categoryRepository.save(category);
         return ResponseEntity.status(HttpStatus.CREATED).body("Category created successfully");
+
+    }
+
+    public Category findById(Long id) {
+        return categoryRepository.findById(id.intValue()).orElseThrow();
 
     }
 }

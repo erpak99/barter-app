@@ -48,4 +48,8 @@ public class UserService {
                 .status(HttpStatus.OK)
                 .body("User with email " + userEmail + " deleted successfully");
     }
+
+    public User findById(Long id) {
+        return repository.findById(id.intValue()).orElseThrow();
+    }
 }

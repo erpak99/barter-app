@@ -23,10 +23,11 @@ public class Brand {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "brand")
-    private List<Product> products;
+        @OneToMany(mappedBy = "brand")
+        private List<Product> products;
 
-    @ManyToMany(mappedBy = "brands")
-    private List<Category> categories;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
 }

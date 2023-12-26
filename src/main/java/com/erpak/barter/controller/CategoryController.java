@@ -1,6 +1,8 @@
 package com.erpak.barter.controller;
 
 import com.erpak.barter.dto.CategoryCreateRequest;
+import com.erpak.barter.dto.CategoryDto;
+import com.erpak.barter.model.Category;
 import com.erpak.barter.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,13 @@ public class CategoryController {
     public ResponseEntity<String> createCategory(
                                 @RequestBody CategoryCreateRequest request) {
         return categoryService.createCategory(request);
+    }
+
+    @GetMapping("/{id}")
+    public CategoryDto findById(@PathVariable Long id) {
+        Category category = categoryService.findById(id);
+        return new CategoryDto(category);
+
     }
 
 }
