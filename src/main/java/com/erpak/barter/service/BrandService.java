@@ -30,8 +30,8 @@ public class BrandService {
         return ResponseEntity.status(HttpStatus.CREATED).body("Brand created successfully");
     }
 
-    public Brand findById(Long id) {
+    public Brand findById(int id) {
 
-        return brandRepository.findById(id.intValue()).orElseThrow();
+        return brandRepository.findById(id).orElseThrow();
     }
 }

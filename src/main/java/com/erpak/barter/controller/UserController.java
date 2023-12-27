@@ -28,13 +28,14 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserDto findById(@PathVariable Long id) {
+    public UserDto findById(@PathVariable int id) {
         User user = service.findById(id);
         return new UserDto(user);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Integer id) {
+
         return service.deleteUser(id);
     }
 

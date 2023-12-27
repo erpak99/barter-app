@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
@@ -38,8 +39,21 @@ public class SecurityConfiguration {
                         .permitAll()
 
                                 .requestMatchers("api/v1/products/**").permitAll()
-                                .requestMatchers("api/v1/categories/**").permitAll()
-                                .requestMatchers("api/v1/brands/**").permitAll()
+
+                                .requestMatchers(HttpMethod.GET, "/api/v1/categories/**").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers(HttpMethod.POST, "/api/v1/categories/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/api/v1/categories/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/api/v1/categories/**").hasRole("ADMIN")
+
+
+                                .requestMatchers(HttpMethod.GET, "/api/v1/brands/**").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers(HttpMethod.POST, "/api/v1/brands/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/api/v1/brands/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/api/v1/brands/**").hasRole("ADMIN")
+
+
+
+
                                 .requestMatchers("api/v1/users/**").permitAll()
 
                         .requestMatchers("api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
@@ -48,6 +62,17 @@ public class SecurityConfiguration {
                         .requestMatchers(POST, "api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
                         .requestMatchers(PUT, "api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())
                         .requestMatchers(DELETE, "api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())
+
+                        .requestMatchers(GET, "api/v1/categories/**").hasAnyAuthority(ADMIN_READ.name(),USER_READ.name())
+                        .requestMatchers(POST, "api/v1/categories/**").hasAuthority(ADMIN_CREATE.name())
+                        .requestMatchers(PUT, "api/v1/categories/**").hasAuthority(ADMIN_UPDATE.name())
+                        .requestMatchers(DELETE, "api/v1/categories/**").hasAuthority(ADMIN_DELETE.name())
+
+                        .requestMatchers(GET, "api/v1/brands/**").hasAnyAuthority(ADMIN_READ.name(),USER_READ.name())
+                        .requestMatchers(POST, "api/v1/brands/**").hasAuthority(ADMIN_CREATE.name())
+                        .requestMatchers(PUT, "api/v1/brands/**").hasAuthority(ADMIN_UPDATE.name())
+                        .requestMatchers(DELETE, "api/v1/brands/**").hasAuthority(ADMIN_DELETE.name())
+
 
               /*          .requestMatchers("api/v1/admin/**").hasRole(ADMIN.name())
 
@@ -58,6 +83,7 @@ public class SecurityConfiguration {
 
                         .anyRequest().authenticated()
                 )
+
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
@@ -70,5 +96,6 @@ public class SecurityConfiguration {
 
         return http.build();
     }
+
 
 }

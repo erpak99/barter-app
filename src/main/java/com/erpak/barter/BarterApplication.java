@@ -44,6 +44,8 @@ public class BarterApplication {
 		return validationProblemDetails;
 	}
 
+
+
 /*	@Bean
 	public CommandLineRunner commandLineRunner(
 			AuthenticationService service

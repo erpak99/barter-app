@@ -15,7 +15,11 @@ import static com.erpak.barter.enums.Permission.*;
 @RequiredArgsConstructor
 public enum Role {
 
-    USER(Collections.emptySet()),
+    USER(
+            Set.of(
+                    USER_READ
+            )
+    ),
     ADMIN(
             Set.of(
                     ADMIN_READ,

@@ -13,8 +13,8 @@ public class ProductCreateRequest {
 
     private String name;
     private Long barterPoint;
-    private Long userId;
-    private Long categoryId;
-    private Long brandId;
+    private int userId;
+    private int categoryId;
+    private int brandId;
 
 }

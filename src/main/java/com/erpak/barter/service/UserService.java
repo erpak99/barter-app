@@ -49,7 +49,7 @@ public class UserService {
                 .body("User with email " + userEmail + " deleted successfully");
     }
 
-    public User findById(Long id) {
-        return repository.findById(id.intValue()).orElseThrow();
+    public User findById(int id) {
+        return repository.findById(id).orElseThrow();
     }
 }

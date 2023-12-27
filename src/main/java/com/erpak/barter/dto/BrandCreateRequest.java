@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class BrandCreateRequest {
 
     private String name;
-    private Long categoryId;
+    private int categoryId;
 
 }

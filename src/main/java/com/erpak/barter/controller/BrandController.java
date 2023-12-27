@@ -24,7 +24,7 @@ public class BrandController {
     }
 
     @GetMapping("/{id}")
-    public BrandDto findById(@PathVariable Long id) {
+    public BrandDto findById(@PathVariable int id) {
         Brand brand = brandService.findById(id);
         return new BrandDto(brand);
     }
