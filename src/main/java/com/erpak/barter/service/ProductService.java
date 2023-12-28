@@ -32,6 +32,8 @@ public class ProductService {
         Product product = Product.builder()
                 .name(request.getName())
                 .barterPoint(request.getBarterPoint())
+                .description(request.getDescription())
+                .statuses(request.getStatuses())
                 .user(user)
                 .brand(brand)
                 .category(category)
