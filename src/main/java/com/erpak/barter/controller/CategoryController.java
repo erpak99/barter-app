@@ -2,6 +2,7 @@ package com.erpak.barter.controller;
 
 import com.erpak.barter.dto.CategoryCreateRequest;
 import com.erpak.barter.dto.CategoryDTO;
+import com.erpak.barter.dto.CategoryProductDTO;
 import com.erpak.barter.model.Category;
 import com.erpak.barter.service.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +28,9 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public CategoryDTO findById(@PathVariable int id) {
+    public CategoryProductDTO findById(@PathVariable int id) {
         Category category = categoryService.findById(id);
-        return new CategoryDTO(category);
+        return new CategoryProductDTO(category);
 
     }
 

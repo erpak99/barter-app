@@ -8,6 +8,7 @@ public class BrandDTO {
 
     private String name;
 
+
     public BrandDTO(Brand brand) {
         this.name = brand.getName();
     }

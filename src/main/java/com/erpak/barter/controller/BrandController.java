@@ -2,6 +2,7 @@ package com.erpak.barter.controller;
 
 import com.erpak.barter.dto.BrandCreateRequest;
 import com.erpak.barter.dto.BrandDTO;
+import com.erpak.barter.dto.BrandProductDTO;
 import com.erpak.barter.model.Brand;
 import com.erpak.barter.service.BrandService;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +27,9 @@ public class BrandController {
     }
 
     @GetMapping("/{id}")
-    public BrandDTO findById(@PathVariable int id) {
+    public BrandProductDTO findById(@PathVariable int id) {
         Brand brand = brandService.findById(id);
-        return new BrandDTO(brand);
+        return new BrandProductDTO(brand);
     }
 
     @GetMapping
