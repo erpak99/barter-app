@@ -38,7 +38,11 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/v1/auth/**")
                         .permitAll()
 
-                                .requestMatchers("api/v1/products/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/v1/products/**").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers(HttpMethod.POST, "/api/v1/products/**").hasRole("USER")
+                                .requestMatchers(HttpMethod.PUT, "/api/v1/products/**").hasAnyRole("ADMIN","USER")
+                                .requestMatchers(HttpMethod.DELETE, "/api/v1/products/**").hasAnyRole("ADMIN","USER")
+
 
                                 .requestMatchers(HttpMethod.GET, "/api/v1/categories/**").hasAnyRole("ADMIN", "USER")
                                 .requestMatchers(HttpMethod.POST, "/api/v1/categories/**").hasRole("ADMIN")
@@ -52,16 +56,14 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.DELETE, "/api/v1/brands/**").hasRole("ADMIN")
 
 
-
-
                                 .requestMatchers("api/v1/users/**").permitAll()
 
-                        .requestMatchers("api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
+                       /* .requestMatchers("api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
 
                         .requestMatchers(GET, "api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
                         .requestMatchers(POST, "api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
                         .requestMatchers(PUT, "api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())
-                        .requestMatchers(DELETE, "api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())
+                        .requestMatchers(DELETE, "api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())*/
 
                         .requestMatchers(GET, "api/v1/categories/**").hasAnyAuthority(ADMIN_READ.name(),USER_READ.name())
                         .requestMatchers(POST, "api/v1/categories/**").hasAuthority(ADMIN_CREATE.name())
@@ -72,6 +74,11 @@ public class SecurityConfiguration {
                         .requestMatchers(POST, "api/v1/brands/**").hasAuthority(ADMIN_CREATE.name())
                         .requestMatchers(PUT, "api/v1/brands/**").hasAuthority(ADMIN_UPDATE.name())
                         .requestMatchers(DELETE, "api/v1/brands/**").hasAuthority(ADMIN_DELETE.name())
+
+                        .requestMatchers(GET, "api/v1/products/**").hasAnyAuthority(ADMIN_READ.name(),USER_READ.name())
+                        .requestMatchers(POST, "api/v1/products/**").hasAuthority(USER_CREATE.name())
+                        .requestMatchers(PUT, "api/v1/products/**").hasAnyAuthority(ADMIN_UPDATE.name(),USER_UPDATE.name())
+                        .requestMatchers(DELETE, "api/v1/products/**").hasAnyAuthority(ADMIN_DELETE.name(),USER_DELETE.name())
 
 
               /*          .requestMatchers("api/v1/admin/**").hasRole(ADMIN.name())

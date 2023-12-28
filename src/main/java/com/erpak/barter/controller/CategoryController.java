@@ -1,13 +1,15 @@
 package com.erpak.barter.controller;
 
 import com.erpak.barter.dto.CategoryCreateRequest;
-import com.erpak.barter.dto.CategoryDto;
+import com.erpak.barter.dto.CategoryDTO;
 import com.erpak.barter.model.Category;
 import com.erpak.barter.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/categories")
@@ -25,10 +27,18 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public CategoryDto findById(@PathVariable int id) {
+    public CategoryDTO findById(@PathVariable int id) {
         Category category = categoryService.findById(id);
-        return new CategoryDto(category);
+        return new CategoryDTO(category);
 
+    }
+
+    @GetMapping
+    public List<CategoryDTO> findAll(){
+        return categoryService.findAll()
+                .stream()
+                .map(category -> new CategoryDTO(category))
+                .toList();
     }
 
 }

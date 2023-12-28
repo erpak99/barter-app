@@ -4,11 +4,11 @@ import com.erpak.barter.model.Brand;
 import lombok.Data;
 
 @Data
-public class BrandDto {
+public class BrandDTO {
 
     private String name;
 
-    public BrandDto(Brand brand) {
+    public BrandDTO(Brand brand) {
         this.name = brand.getName();
     }
 

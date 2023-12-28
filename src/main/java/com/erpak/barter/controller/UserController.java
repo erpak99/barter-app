@@ -1,7 +1,7 @@
 package com.erpak.barter.controller;
 
 import com.erpak.barter.dto.ChangePasswordRequest;
-import com.erpak.barter.dto.UserDto;
+import com.erpak.barter.dto.UserDTO;
 import com.erpak.barter.model.User;
 import com.erpak.barter.service.UserService;
 import jakarta.validation.Valid;
@@ -28,9 +28,9 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserDto findById(@PathVariable int id) {
+    public UserDTO findById(@PathVariable int id) {
         User user = service.findById(id);
-        return new UserDto(user);
+        return new UserDTO(user);
     }
 
     @DeleteMapping("/{id}")

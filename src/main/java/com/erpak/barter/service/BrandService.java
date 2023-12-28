@@ -1,7 +1,6 @@
 package com.erpak.barter.service;
 
 import com.erpak.barter.dto.BrandCreateRequest;
-import com.erpak.barter.dto.CategoryDto;
 import com.erpak.barter.model.Brand;
 import com.erpak.barter.model.Category;
 import com.erpak.barter.repository.BrandRepository;
@@ -9,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +34,9 @@ public class BrandService {
     public Brand findById(int id) {
 
         return brandRepository.findById(id).orElseThrow();
+    }
+
+    public List<Brand> findAll() {
+        return brandRepository.findAll();
     }
 }

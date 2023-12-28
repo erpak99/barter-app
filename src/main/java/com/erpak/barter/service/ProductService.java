@@ -1,6 +1,7 @@
 package com.erpak.barter.service;
 
 import com.erpak.barter.dto.ProductCreateRequest;
+import com.erpak.barter.dto.ProductDTO;
 import com.erpak.barter.model.Brand;
 import com.erpak.barter.model.Category;
 import com.erpak.barter.model.Product;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -37,5 +40,13 @@ public class ProductService {
         productRepository.save(product);
         return ResponseEntity.status(HttpStatus.CREATED).body("Product created successfully");
 
+    }
+
+    public Product findById(int id) {
+        return productRepository.findById(id).orElseThrow();
+    }
+
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
 }

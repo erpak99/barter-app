@@ -17,7 +17,10 @@ public enum Role {
 
     USER(
             Set.of(
-                    USER_READ
+                    USER_READ,
+                    USER_CREATE,
+                    USER_UPDATE,
+                    USER_DELETE
             )
     ),
     ADMIN(

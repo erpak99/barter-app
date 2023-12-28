@@ -5,10 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class CategoryDto {
+public class CategoryDTO {
     private String name;
 
-    public CategoryDto(Category category) {
+    public CategoryDTO(Category category) {
         this.name = category.getName();
     }
 

@@ -1,13 +1,15 @@
 package com.erpak.barter.controller;
 
 import com.erpak.barter.dto.BrandCreateRequest;
-import com.erpak.barter.dto.BrandDto;
+import com.erpak.barter.dto.BrandDTO;
 import com.erpak.barter.model.Brand;
 import com.erpak.barter.service.BrandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/brands")
@@ -24,9 +26,17 @@ public class BrandController {
     }
 
     @GetMapping("/{id}")
-    public BrandDto findById(@PathVariable int id) {
+    public BrandDTO findById(@PathVariable int id) {
         Brand brand = brandService.findById(id);
-        return new BrandDto(brand);
+        return new BrandDTO(brand);
+    }
+
+    @GetMapping
+    public List<BrandDTO> findAll() {
+        return brandService.findAll()
+                .stream()
+                .map(brand -> new BrandDTO(brand))
+                .toList();
     }
 
 
