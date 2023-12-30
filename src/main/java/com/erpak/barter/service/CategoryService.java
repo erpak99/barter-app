@@ -1,9 +1,9 @@
 package com.erpak.barter.service;
 
 import com.erpak.barter.dto.CategoryCreateRequest;
-import com.erpak.barter.dto.CategoryDTO;
 import com.erpak.barter.model.Category;
 import com.erpak.barter.repository.CategoryRepository;
+import com.erpak.barter.rules.CategoryCreateRules;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +16,11 @@ import java.util.List;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final CategoryCreateRules categoryCreateRules;
 
     public ResponseEntity<String> createCategory(CategoryCreateRequest request) {
+
+        categoryCreateRules.checkIfCategoryNameExists(request.getName());
 
         Category category = Category.builder()
                         .name(request.getName())

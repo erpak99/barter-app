@@ -5,6 +5,7 @@ import com.erpak.barter.dto.CategoryDTO;
 import com.erpak.barter.dto.CategoryProductDTO;
 import com.erpak.barter.model.Category;
 import com.erpak.barter.service.CategoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class CategoryController {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<String> createCategory(
-                                @RequestBody CategoryCreateRequest request) {
+                                @RequestBody @Valid CategoryCreateRequest request) {
         return categoryService.createCategory(request);
     }
 

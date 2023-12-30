@@ -5,6 +5,7 @@ import com.erpak.barter.dto.BrandDTO;
 import com.erpak.barter.dto.BrandProductDTO;
 import com.erpak.barter.model.Brand;
 import com.erpak.barter.service.BrandService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,8 @@ public class BrandController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<String> createBrand(@RequestBody BrandCreateRequest request) {
+    public ResponseEntity<String> createBrand(
+                                @RequestBody @Valid BrandCreateRequest request) {
 
         return brandService.createBrand(request);
     }

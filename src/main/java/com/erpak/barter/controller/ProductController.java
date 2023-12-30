@@ -4,6 +4,7 @@ import com.erpak.barter.dto.ProductCreateRequest;
 import com.erpak.barter.dto.ProductDTO;
 import com.erpak.barter.model.Product;
 import com.erpak.barter.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,8 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<String> createProduct(@RequestBody ProductCreateRequest request) {
+    public ResponseEntity<String> createProduct(
+                            @RequestBody @Valid ProductCreateRequest request) {
         return productService.createProduct(request);
     }
 
