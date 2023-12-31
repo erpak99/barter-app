@@ -30,4 +30,16 @@ public class BarterController {
         return new BarterDTO(barter);
     }
 
+    @PostMapping("/{barterId}/approve")
+    public ResponseEntity<String> approveBarter(@PathVariable int barterId) {
+        return barterService.approveBarter(barterId);
+
+    }
+
+    @PostMapping("/{barterId}/reject")
+    public ResponseEntity<String> rejectBarter(@PathVariable int barterId) {
+        return barterService.approveBarter(barterId);
+
+    }
+
 }

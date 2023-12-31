@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class BarterService {
@@ -44,4 +46,50 @@ public class BarterService {
     public Barter findById(int id) {
         return barterRepository.findById(id).orElseThrow();
     }
-}
+
+    public ResponseEntity<String> approveBarter(int barterId) {
+
+        Optional<Barter> optionalBarter = barterRepository.findById(barterId);
+
+        if (optionalBarter.isPresent()) {
+            Barter barter = optionalBarter.get();
+
+            if (barter.getBarterStatus() == BarterStatus.PENDING) {
+                barter.setBarterStatus(BarterStatus.APPROVED);
+                barterRepository.save(barter);
+                return ResponseEntity.ok("Barter request approved successfully");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Barter request is not in a pending state");
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Barter request not found");
+        }
+
+        }
+
+
+    public ResponseEntity<String> rejectBarter(int barterId) {
+
+        Optional<Barter> optionalBarter = barterRepository.findById(barterId);
+
+        if (optionalBarter.isPresent()) {
+            Barter barter = optionalBarter.get();
+
+            if (barter.getBarterStatus() == BarterStatus.PENDING) {
+                barter.setBarterStatus(BarterStatus.REJECTED);
+                barterRepository.save(barter);
+                return ResponseEntity.ok("Barter request rejected successfully");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Barter request is not in a pending state");
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Barter request not found");
+        }
+
+    }
+
+    }
