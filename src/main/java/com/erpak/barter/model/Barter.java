@@ -1,5 +1,6 @@
 package com.erpak.barter.model;
 
+import com.erpak.barter.enums.BarterStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "barter")
+@Table(name = "barters")
 public class Barter {
 
     @Id
@@ -33,5 +34,9 @@ public class Barter {
     @ManyToOne
     @JoinColumn(name = "product2_id")
     private Product productTwo;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "barter_status")
+    private BarterStatus barterStatus;
 
 }

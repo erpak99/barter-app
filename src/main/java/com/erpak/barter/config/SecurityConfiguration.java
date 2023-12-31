@@ -11,12 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 import static com.erpak.barter.enums.Permission.*;
-import static com.erpak.barter.enums.Role.*;
 import static org.springframework.http.HttpMethod.*;
 
 @Configuration
@@ -54,6 +52,8 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.POST, "/api/v1/brands/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT, "/api/v1/brands/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/api/v1/brands/**").hasRole("ADMIN")
+
+                                .requestMatchers("api/v1/barters/**").permitAll()
 
 
                                 .requestMatchers("api/v1/users/**").permitAll()
