@@ -2,6 +2,7 @@ package com.erpak.barter.controller;
 
 import com.erpak.barter.dto.ProductCreateRequest;
 import com.erpak.barter.dto.ProductDTO;
+import com.erpak.barter.dto.ProductUpdateRequest;
 import com.erpak.barter.enums.ProductStatus;
 import com.erpak.barter.model.Product;
 import com.erpak.barter.service.ProductService;
@@ -73,6 +74,12 @@ public class ProductController {
     @GetMapping("/byStatus")
     public ResponseEntity<?> getProductsByStatus(@RequestParam ProductStatus status) {
         return productService.getProductsByStatus(status);
+    }
+
+    @PutMapping("/{productId}")
+    public ResponseEntity<String> updateProduct(@PathVariable int productId,
+                                                @RequestBody @Valid ProductUpdateRequest request) {
+        return productService.updateProduct(productId,request);
     }
 
 

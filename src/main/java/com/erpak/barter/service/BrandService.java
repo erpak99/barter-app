@@ -1,6 +1,7 @@
 package com.erpak.barter.service;
 
 import com.erpak.barter.dto.BrandCreateRequest;
+import com.erpak.barter.dto.BrandUpdateRequest;
 import com.erpak.barter.model.Brand;
 import com.erpak.barter.model.Category;
 import com.erpak.barter.repository.BrandRepository;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -42,5 +44,22 @@ public class BrandService {
 
     public List<Brand> findAll() {
         return brandRepository.findAll();
+    }
+
+    public ResponseEntity<String> updateBrand(int brandId, BrandUpdateRequest request) {
+
+        Optional<Brand> brand = brandRepository.findById(brandId);
+        Category category = categoryService.findById(request.getCategoryId());
+
+        if(brand.isPresent()) {
+            Brand updatedBrand = brand.get();
+            updatedBrand.setName(request.getName());
+            updatedBrand.setCategory(category);
+            brandRepository.save(updatedBrand);
+            return ResponseEntity.status(HttpStatus.OK).body("Brand updated successfully");
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Brand can not be found");
+        }
     }
 }

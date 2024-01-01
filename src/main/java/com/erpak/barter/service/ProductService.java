@@ -2,6 +2,7 @@ package com.erpak.barter.service;
 
 import com.erpak.barter.dto.ProductCreateRequest;
 import com.erpak.barter.dto.ProductDTO;
+import com.erpak.barter.dto.ProductUpdateRequest;
 import com.erpak.barter.enums.ProductStatus;
 import com.erpak.barter.exceptions.ExceptionMessages;
 import com.erpak.barter.exceptions.ProductNotFoundException;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -131,4 +133,26 @@ public class ProductService {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
+    public ResponseEntity<String> updateProduct(int productId, ProductUpdateRequest request) {
+
+        Optional<Product> product = productRepository.findById(productId);
+        User user = userService.findById(request.getUserId());
+        Category category = categoryService.findById(request.getCategoryId());
+        Brand brand = brandService.findById(request.getBrandId());
+
+        if(product.isPresent()) {
+            Product updatedProduct = product.get();
+            updatedProduct.setName(request.getName());
+            updatedProduct.setBarterPoint(request.getBarterPoint());
+            updatedProduct.setDescription(request.getDescription());
+            updatedProduct.setStatuses(request.getStatuses());
+            updatedProduct.setUser(user);
+            updatedProduct.setCategory(category);
+            updatedProduct.setBrand(brand);
+            productRepository.save(updatedProduct);
+            return ResponseEntity.status(HttpStatus.OK).body("Product updated successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product can not be found");
+        }
+    }
 }

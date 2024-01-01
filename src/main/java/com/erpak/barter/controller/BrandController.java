@@ -3,6 +3,7 @@ package com.erpak.barter.controller;
 import com.erpak.barter.dto.BrandCreateRequest;
 import com.erpak.barter.dto.BrandDTO;
 import com.erpak.barter.dto.BrandProductDTO;
+import com.erpak.barter.dto.BrandUpdateRequest;
 import com.erpak.barter.model.Brand;
 import com.erpak.barter.service.BrandService;
 import jakarta.validation.Valid;
@@ -42,5 +43,11 @@ public class BrandController {
                 .toList();
     }
 
+
+    @PutMapping("/{brandId}")
+    public ResponseEntity<String> updateBrand(@PathVariable int brandId,
+                                              @RequestBody @Valid BrandUpdateRequest request) {
+        return brandService.updateBrand(brandId,request);
+    }
 
 }
