@@ -20,6 +20,8 @@ public class BarterService {
     private final BarterRepository barterRepository;
     private final UserService userService;
     private final ProductService productService;
+    private final EmailSenderService emailSenderService;
+
 
     public ResponseEntity<String> createBarterRequest(BarterCreateRequest barterCreateRequest) {
 
@@ -37,9 +39,29 @@ public class BarterService {
                 .barterStatus(BarterStatus.PENDING)
                 .build();
 
+        sendEmail(barterCreateRequest);
+
         barterRepository.save(barter);
         return ResponseEntity.status(HttpStatus.CREATED)
                                         .body("Barter request created successfully");
+
+    }
+
+    private void sendEmail(BarterCreateRequest barterCreateRequest) {
+
+        User userToCreateBarterRequest = userService.findById(barterCreateRequest.getUserOneId());
+        User userToSendEmail = userService.findById(barterCreateRequest.getUserTwoId());
+        Product productForUserOne = productService.findById(barterCreateRequest.getProductOneId());
+        Product productForUserTwo = productService.findById(barterCreateRequest.getProductTwoId());
+
+
+        String body = "You have a new barter request from user "
+                + userToCreateBarterRequest.getEmail() + " for your product " + productForUserTwo.getName() +
+                " with the product " + productForUserOne.getName();
+
+        String subject = "New Barter Request!";
+
+        emailSenderService.sendSimpleEmail(userToSendEmail.getEmail(),body,subject);
 
     }
 
