@@ -17,4 +17,6 @@ public class ExceptionMessages {
     public static final String BRAND_NAME_ALREADY_EXISTS =
                                         "This brand name already exists in the system.";
 
+    public static final String PRODUCT_NOT_FOUND = "No products found";
+
 }
