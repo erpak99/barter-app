@@ -53,8 +53,10 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.PUT, "/api/v1/brands/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/api/v1/brands/**").hasRole("ADMIN")
 
-                                .requestMatchers("api/v1/barters/**").permitAll()
-
+                                .requestMatchers(HttpMethod.GET, "/api/v1/barters/**").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers(HttpMethod.POST, "/api/v1/barters/**").hasRole("USER")
+                                .requestMatchers(HttpMethod.PUT, "/api/v1/barters/**").hasRole("USER")
+                                .requestMatchers(HttpMethod.DELETE, "/api/v1/barters/**").hasAnyRole("ADMIN","USER")
 
                                 .requestMatchers("api/v1/users/**").permitAll()
 
@@ -79,6 +81,13 @@ public class SecurityConfiguration {
                         .requestMatchers(POST, "api/v1/products/**").hasAuthority(USER_CREATE.name())
                         .requestMatchers(PUT, "api/v1/products/**").hasAnyAuthority(ADMIN_UPDATE.name(),USER_UPDATE.name())
                         .requestMatchers(DELETE, "api/v1/products/**").hasAnyAuthority(ADMIN_DELETE.name(),USER_DELETE.name())
+
+
+                        .requestMatchers(GET, "api/v1/barters/**").hasAnyAuthority(ADMIN_READ.name(),USER_READ.name())
+                        .requestMatchers(POST, "api/v1/barters/**").hasAuthority(USER_CREATE.name())
+                        .requestMatchers(PUT, "api/v1/barters/**").hasAnyAuthority(USER_UPDATE.name())
+                        .requestMatchers(DELETE, "api/v1/barters/**").hasAnyAuthority(ADMIN_DELETE.name(),USER_DELETE.name())
+
 
 
               /*          .requestMatchers("api/v1/admin/**").hasRole(ADMIN.name())
