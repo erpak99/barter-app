@@ -22,7 +22,6 @@ public class BarterService {
     private final ProductService productService;
     private final EmailSenderService emailSenderService;
 
-
     public ResponseEntity<String> createBarterRequest(BarterCreateRequest barterCreateRequest) {
 
         User userOne = userService.findById(barterCreateRequest.getUserOneId());

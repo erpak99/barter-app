@@ -19,4 +19,7 @@ public class ExceptionMessages {
 
     public static final String PRODUCT_NOT_FOUND = "No products found";
 
+    public static final String CATEGORY_NOT_FOUND = "No category found";
+
+
 }
