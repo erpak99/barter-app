@@ -2,6 +2,8 @@ package com.erpak.barter.service;
 
 import com.erpak.barter.dto.BrandCreateRequest;
 import com.erpak.barter.dto.BrandUpdateRequest;
+import com.erpak.barter.exceptions.BrandNotFoundException;
+import com.erpak.barter.exceptions.ExceptionMessages;
 import com.erpak.barter.model.Brand;
 import com.erpak.barter.model.Category;
 import com.erpak.barter.repository.BrandRepository;
@@ -18,7 +20,6 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -103,10 +104,11 @@ public class BrandServiceTests {
         when(brandRepository.findById(1)).thenReturn(Optional.empty());
 
         assertThrows(
-                    NoSuchElementException.class,
+                    BrandNotFoundException.class,
                         () -> {
                             Brand brand = brandService.findById(1);
-                        }
+                        },
+                ExceptionMessages.BRAND_NOT_FOUND
         );
 
     }

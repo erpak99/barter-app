@@ -2,6 +2,8 @@ package com.erpak.barter.service;
 
 import com.erpak.barter.dto.BrandCreateRequest;
 import com.erpak.barter.dto.BrandUpdateRequest;
+import com.erpak.barter.exceptions.BrandNotFoundException;
+import com.erpak.barter.exceptions.ExceptionMessages;
 import com.erpak.barter.model.Brand;
 import com.erpak.barter.model.Category;
 import com.erpak.barter.repository.BrandRepository;
@@ -39,7 +41,9 @@ public class BrandService {
 
     public Brand findById(int id) {
 
-        return brandRepository.findById(id).orElseThrow();
+        return brandRepository.findById(id).orElseThrow(
+                () -> new BrandNotFoundException(ExceptionMessages.BRAND_NOT_FOUND)
+        );
     }
 
     public List<Brand> findAll() {

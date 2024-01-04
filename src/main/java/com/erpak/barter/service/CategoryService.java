@@ -2,6 +2,8 @@ package com.erpak.barter.service;
 
 import com.erpak.barter.dto.CategoryCreateRequest;
 import com.erpak.barter.dto.CategoryUpdateRequest;
+import com.erpak.barter.exceptions.CategoryNotFoundException;
+import com.erpak.barter.exceptions.ExceptionMessages;
 import com.erpak.barter.model.Category;
 import com.erpak.barter.repository.CategoryRepository;
 import com.erpak.barter.rules.CategoryCreateRules;
@@ -33,8 +35,11 @@ public class CategoryService {
 
     }
 
+
     public Category findById(int id) {
-        return categoryRepository.findById(id).orElseThrow();
+        return categoryRepository.findById(id).orElseThrow(
+                () -> new CategoryNotFoundException(ExceptionMessages.CATEGORY_NOT_FOUND)
+        );
 
     }
 

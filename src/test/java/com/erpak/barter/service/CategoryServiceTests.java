@@ -2,6 +2,7 @@ package com.erpak.barter.service;
 
 import com.erpak.barter.dto.CategoryCreateRequest;
 import com.erpak.barter.dto.CategoryUpdateRequest;
+import com.erpak.barter.exceptions.CategoryNotFoundException;
 import com.erpak.barter.exceptions.ExceptionMessages;
 import com.erpak.barter.model.Category;
 import com.erpak.barter.repository.CategoryRepository;
@@ -18,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -101,7 +101,8 @@ public class CategoryServiceTests {
 
         when(categoryRepository.findById(1)).thenReturn(Optional.empty());
 
-        assertThrows(NoSuchElementException.class,
+        assertThrows(
+                CategoryNotFoundException.class,
                 () -> {
                         Category category = categoryService.findById(1);
                 }, ExceptionMessages.CATEGORY_NOT_FOUND

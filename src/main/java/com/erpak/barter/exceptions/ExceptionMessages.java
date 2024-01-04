@@ -21,5 +21,8 @@ public class ExceptionMessages {
 
     public static final String CATEGORY_NOT_FOUND = "No category found";
 
+    public static final String USER_NOT_FOUND = "No user found";
+
+    public static final String BRAND_NOT_FOUND = "No brand found";
 
 }
