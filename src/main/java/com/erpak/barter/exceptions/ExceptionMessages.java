@@ -25,4 +25,6 @@ public class ExceptionMessages {
 
     public static final String BRAND_NOT_FOUND = "No brand found";
 
+    public static final String BARTER_NOT_FOUND = "No barter found";
+
 }

@@ -2,6 +2,8 @@ package com.erpak.barter.service;
 
 import com.erpak.barter.dto.BarterCreateRequest;
 import com.erpak.barter.enums.BarterStatus;
+import com.erpak.barter.exceptions.BarterNotFoundException;
+import com.erpak.barter.exceptions.ExceptionMessages;
 import com.erpak.barter.model.Barter;
 import com.erpak.barter.model.Product;
 import com.erpak.barter.model.User;
@@ -65,7 +67,10 @@ public class BarterService {
     }
 
     public Barter findById(int id) {
-        return barterRepository.findById(id).orElseThrow();
+
+        return barterRepository.findById(id).orElseThrow(
+                () -> new BarterNotFoundException(ExceptionMessages.BARTER_NOT_FOUND)
+                );
     }
 
     public ResponseEntity<String> approveBarter(int barterId) {
