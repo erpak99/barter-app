@@ -1,6 +1,7 @@
 package com.erpak.barter.service;
 
 import com.erpak.barter.dto.BarterCreateRequest;
+import com.erpak.barter.dto.BarterDTO;
 import com.erpak.barter.enums.BarterStatus;
 import com.erpak.barter.exceptions.BarterNotFoundException;
 import com.erpak.barter.exceptions.ExceptionMessages;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -118,4 +120,30 @@ public class BarterService {
 
     }
 
+    public List<BarterDTO> getBartersByUserId(int userId) throws Exception {
+
+        List<BarterDTO> barterList = barterRepository
+                .findByUserOneIdOrUserTwoId(userId,userId)
+                .stream()
+                .map(barter -> new BarterDTO(barter))
+                .toList();
+        if(!barterList.isEmpty()) {
+            return barterList;
+        }
+        throw new BarterNotFoundException(ExceptionMessages.BARTER_NOT_FOUND);
     }
+
+    public List<BarterDTO> findBartersByUserIdAndBarterStatus(int userId, BarterStatus status) {
+
+        List<BarterDTO> barterList = barterRepository
+                .findByUserOneIdAndBarterStatusOrUserTwoIdAndBarterStatus
+                (userId, status, userId, status)
+                .stream()
+                .map(barter -> new BarterDTO(barter))
+                .toList();
+        if(!barterList.isEmpty()) {
+            return barterList;
+        }
+        throw new BarterNotFoundException(ExceptionMessages.BARTER_NOT_FOUND);
+    }
+}
