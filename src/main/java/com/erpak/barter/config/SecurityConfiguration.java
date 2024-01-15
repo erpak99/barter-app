@@ -36,19 +36,19 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/v1/auth/**")
                         .permitAll()
 
-                                .requestMatchers(HttpMethod.GET, "/api/v1/products/**").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/v1/products/**").hasRole("USER")
                                 .requestMatchers(HttpMethod.PUT, "/api/v1/products/**").hasAnyRole("ADMIN","USER")
                                 .requestMatchers(HttpMethod.DELETE, "/api/v1/products/**").hasAnyRole("ADMIN","USER")
 
 
-                                .requestMatchers(HttpMethod.GET, "/api/v1/categories/**").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers(HttpMethod.GET, "/api/v1/categories/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/v1/categories/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT, "/api/v1/categories/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/api/v1/categories/**").hasRole("ADMIN")
 
 
-                                .requestMatchers(HttpMethod.GET, "/api/v1/brands/**").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers(HttpMethod.GET, "/api/v1/brands/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/v1/brands/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT, "/api/v1/brands/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/api/v1/brands/**").hasRole("ADMIN")
@@ -67,17 +67,17 @@ public class SecurityConfiguration {
                         .requestMatchers(PUT, "api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())
                         .requestMatchers(DELETE, "api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())*/
 
-                        .requestMatchers(GET, "api/v1/categories/**").hasAnyAuthority(ADMIN_READ.name(),USER_READ.name())
+                        .requestMatchers(GET, "api/v1/categories/**").permitAll()
                         .requestMatchers(POST, "api/v1/categories/**").hasAuthority(ADMIN_CREATE.name())
                         .requestMatchers(PUT, "api/v1/categories/**").hasAuthority(ADMIN_UPDATE.name())
                         .requestMatchers(DELETE, "api/v1/categories/**").hasAuthority(ADMIN_DELETE.name())
 
-                        .requestMatchers(GET, "api/v1/brands/**").hasAnyAuthority(ADMIN_READ.name(),USER_READ.name())
+                        .requestMatchers(GET, "api/v1/brands/**").permitAll()
                         .requestMatchers(POST, "api/v1/brands/**").hasAuthority(ADMIN_CREATE.name())
                         .requestMatchers(PUT, "api/v1/brands/**").hasAuthority(ADMIN_UPDATE.name())
                         .requestMatchers(DELETE, "api/v1/brands/**").hasAuthority(ADMIN_DELETE.name())
 
-                        .requestMatchers(GET, "api/v1/products/**").hasAnyAuthority(ADMIN_READ.name(),USER_READ.name())
+                        .requestMatchers(GET, "api/v1/products/**").permitAll()
                         .requestMatchers(POST, "api/v1/products/**").hasAuthority(USER_CREATE.name())
                         .requestMatchers(PUT, "api/v1/products/**").hasAnyAuthority(ADMIN_UPDATE.name(),USER_UPDATE.name())
                         .requestMatchers(DELETE, "api/v1/products/**").hasAnyAuthority(ADMIN_DELETE.name(),USER_DELETE.name())
