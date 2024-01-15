@@ -28,19 +28,7 @@ public enum Role {
                     ADMIN_READ,
                     ADMIN_UPDATE,
                     ADMIN_CREATE,
-                    ADMIN_DELETE,
-                    MANAGER_READ,
-                    MANAGER_UPDATE,
-                    MANAGER_CREATE,
-                    MANAGER_DELETE
-            )
-    ),
-    MANAGER(
-            Set.of(
-                    MANAGER_READ,
-                    MANAGER_UPDATE,
-                    MANAGER_CREATE,
-                    MANAGER_DELETE
+                    ADMIN_DELETE
             )
     );
 
